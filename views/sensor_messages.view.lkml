@@ -133,9 +133,10 @@ view: sensor_messages {
                               when 16 then 'duration' when 39 then 'period' when 38 then 'debounce time' when 244 then 'gain' when 34 then 'rate'
                               when 35 then 'minimum dB' when 114 then 'code 3' when 12 then 'maximum distance' when 2816 then 'absolute ending angle'
                               when 1507455 then 'status 15' when 17 then 'frequency report' when 10 then 'hall resistance' when 18 then 'frequency report 2'
-                              when 19 then 'frequency report 3' when 240 then 'bridge hw ID 2' when 252 then 'bridge hw ID 4'
+                              when 19 then 'frequency report 3' when 240 then 'bridge hw ID 2' when 243 then 'bridge hw ID 3' when 252 then 'bridge hw ID 4'
                               else 'Other' end ;;
   }
+
 
 
   dimension: version {
