@@ -127,6 +127,13 @@ view: sensor_messages {
                               when 131073 then 'Status 7' when 1179649 then 'Status 8' when 1245311 then 'Status 9' when 128 then 'Code'
                               when 1310725 then 'Status 10' when 1114113 then 'Status 11' when 1245185 then 'Status 12' when 1114116 then 'High Threshold'
                               when 1179654 then 'Status 13' when 1179650 then 'Status 14'
+                              when 223 then 'Option Code' when 3586 then 'accel' when 241 then 'enabled_functions' when 116 then 'motion mdel'
+                              when 0 then 'format' when 255 then 'hardware revision' when 1507457 then 'bins' when 1507456 then 'dominant frequencies'
+                              when 1310848 then 'distance traveled' when 21 then 'bridge hw ID' when 115 then 'code 2' when 33 then 'glitch_count'
+                              when 16 then 'duration' when 39 then 'period' when 38 then 'debounce time' when 244 then 'gain' when 34 then 'rate'
+                              when 35 then 'minimum dB' when 114 then 'code 3' when 12 then 'maximum distance' when 2816 then 'absolute ending angle'
+                              when 1507455 then 'status 15' when 17 then 'frequency report' when 10 then 'hall resistance' when 18 then 'frequency report 2'
+                              when 19 then 'frequency report 3' when 240 then 'bridge hw ID 2' when 252 then 'bridge hw ID 4'
                               else 'Other' end ;;
   }
 
