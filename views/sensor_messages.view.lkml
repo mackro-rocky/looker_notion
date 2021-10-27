@@ -155,7 +155,7 @@ view: sensor_messages {
 
   measure: average_temp {
     type: average
-    sql: ${TABLE}.data:temperature;;
+    sql: (${TABLE}.data:temperature/1000 *9/5) + 32;;
   }
 
 
