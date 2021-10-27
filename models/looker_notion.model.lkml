@@ -34,6 +34,11 @@ explore: sensor_messages {
     relationship: many_to_one
     sql_on: ${sensor_messages.bridge_hardware_id} = ${bridges_all.hardware_id} ;;
   }
+  join: hardware_bridges {
+    view_label: "HW Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.hardware_id} = ${hardware_bridges.id} ;;
+  }
   join: systems_all {
     view_label: "Systems"
     relationship: one_to_many
@@ -54,4 +59,29 @@ explore: sensor_messages {
 explore: sensors_all {}
 explore: users_all {}
 explore: system_users_all {}
-explore: systems_all {}
+
+explore: systems_all {
+  view_label: "Systems"
+
+  join: bridges_all {
+    view_label: "Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.system_id} = ${systems_all.id}  ;;
+  }
+  join: hardware_bridges {
+    view_label: "HW Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.hardware_id} = ${hardware_bridges.id} ;;
+  }
+
+  join: system_users_all  {
+    view_label: "System Users"
+    relationship: one_to_many
+    sql_on: ${systems_all.uuid} = ${system_users_all.system_id} ;;
+  }
+  join: users_all  {
+    view_label: "Users"
+    relationship: one_to_many
+    sql_on: ${system_users_all.user_id} = ${users_all.uuid} ;;
+  }
+}
