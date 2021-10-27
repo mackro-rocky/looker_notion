@@ -118,6 +118,19 @@ view: sensor_messages {
     sql: ${TABLE}."TYPE" ;;
   }
 
+  dimension: type_eng {
+    type: string
+    sql: case ${TABLE}."TYPE" when 4 then 'Active Tasks' when 1048704 then 'Temp' when 1179776 then 'Acceleration' when 1179652 then 'Home Position'
+                              when 131200 then 'Battery Voltage' when 1114240 then 'Voltage After Charge' when 1310724 then 'Config Flags'
+                              when 1310721 then 'Status' when 1245312 then 'Mag End' when 65552 then 'Status 2'
+                              when 1179775 then 'Status 3' when 1441794 then 'Status 4' when 1441798 then 'Status 5' when 1048577 then 'Status 6'
+                              when 131073 then 'Status 7' when 1179649 then 'Status 8' when 1245311 then 'Status 9' when 128 then 'Code'
+                              when 1310725 then 'Status 10' when 1114113 then 'Status 11' when 1245185 then 'Status 12' when 1114116 then 'High Threshold'
+                              when 1179654 then 'Status 13' when 1179650 then 'Status 14'
+                              else 'Other' end ;;
+  }
+
+
   dimension: version {
     type: number
     sql: ${TABLE}."VERSION" ;;
