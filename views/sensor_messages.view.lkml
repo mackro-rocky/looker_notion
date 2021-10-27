@@ -153,6 +153,12 @@ view: sensor_messages {
     drill_fields: [id, filename, hardware.id, model_states_sensor_raw.count]
   }
 
+  measure: average_temp {
+    type: average
+    sql: ${TABLE}."data:temperature" ;;
+  }
+
+
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
 
