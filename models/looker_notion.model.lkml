@@ -62,6 +62,7 @@ explore: system_users_all {}
 
 explore: systems_all {
   view_label: "Systems"
+  label: "Systems"
 
   join: bridges_all {
     view_label: "Bridges"
@@ -84,4 +85,41 @@ explore: systems_all {
     relationship: one_to_many
     sql_on: ${system_users_all.user_id} = ${users_all.uuid} ;;
   }
+}
+
+explore: model_states_sensor {
+  label: "Model States"
+  view_label: "Model States"
+
+
+  join: listeners_sensor_all {
+    view_label: "Listener Sensors"
+    relationship: one_to_many
+    sql_on:  ${model_states_sensor.listener_id} = ${listeners_sensor_all.id} ;;
+  }
+
+  join: sensors_all {
+    view_label: "Sensors"
+    relationship: one_to_many
+    sql_on:  ${sensors_all.uuid} = ${listeners_sensor_all.sensor_id} ;;
+  }
+
+  join: systems_all {
+    view_label: "Systems"
+    relationship: one_to_many
+    sql_on:  ${systems_all.id} = ${sensors_all.system_id} ;;
+  }
+
+  join: system_users_all {
+    view_label: "System Users"
+    relationship: one_to_many
+    sql_on:  ${system_users_all.system_id} = ${systems_all.uuid} ;;
+  }
+
+  join: users_all {
+    view_label: "Users"
+    relationship: one_to_many
+    sql_on:  ${users_all.uuid} = ${system_users_all.user_id} ;;
+  }
+
 }
