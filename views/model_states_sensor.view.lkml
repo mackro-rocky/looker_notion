@@ -55,7 +55,6 @@ view: model_states_sensor {
   }
 
   dimension: model_type {
-    view_label: "Model Type"
     type: string
     sql: replace(${TABLE}.payload:model_type,'"','') ;;
 
