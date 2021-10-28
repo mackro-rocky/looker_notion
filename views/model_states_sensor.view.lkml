@@ -60,6 +60,15 @@ view: model_states_sensor {
 
   }
 
+  dimension: payload_state {
+    type: string
+    sql: case replace(payload:hardware_flavor,'"','')
+              when 'breck' then   replace(replace(payload:data:state,'{"probe":"',''),'"}','')
+              when 'granite' then replace(payload:data:state,'"','')  end ;;
+
+  }
+
+
   dimension: previous_model_state_id {
     type: string
     sql: ${TABLE}."PREVIOUS_MODEL_STATE_ID" ;;
