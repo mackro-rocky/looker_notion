@@ -63,6 +63,11 @@ view: model_states_sensor {
     sql: ${TABLE}."SENSOR_MESSAGE_ID" ;;
   }
 
+  dimension: model_type {
+    view_label: "Model Type"
+    sql: replace(${TABLE}.payload:model_type,'"','') ;;
+
+  }
   measure: count {
     type: count
     drill_fields: [filename]
