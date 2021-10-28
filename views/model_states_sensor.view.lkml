@@ -16,6 +16,7 @@ view: model_states_sensor {
     sql: ${TABLE}."DATA" ;;
   }
 
+
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
@@ -53,6 +54,13 @@ view: model_states_sensor {
     sql: ${TABLE}."PAYLOAD" ;;
   }
 
+  dimension: model_type {
+    view_label: "Model Type"
+    type: string
+    sql: replace(${TABLE}.payload:model_type,'"','') ;;
+
+  }
+
   dimension: previous_model_state_id {
     type: string
     sql: ${TABLE}."PREVIOUS_MODEL_STATE_ID" ;;
@@ -63,11 +71,7 @@ view: model_states_sensor {
     sql: ${TABLE}."SENSOR_MESSAGE_ID" ;;
   }
 
-  dimension: model_type {
-    view_label: "Model Type"
-    sql: replace(${TABLE}.payload:model_type,'"','') ;;
 
-  }
   measure: count {
     type: count
     drill_fields: [filename]
