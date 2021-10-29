@@ -24,7 +24,7 @@ view: systems_all {
   }
 
 
-  dimension: us_states {
+  filter: us_states {
     type: string
     sql: ${TABLE}."ADMINISTRATIVE_AREA" ;;
     suggestions: ["Alabama", "Alaska", "Arizona"]
