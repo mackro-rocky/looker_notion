@@ -94,7 +94,7 @@ view: system_users_all {
 
   measure: systems_users_count {
     type: count_distinct
-    sql: ${TABLE}.USER_UD ;;
+    sql: ${TABLE}.USER_ID ;;
   }
 
   # These sum and average measures are hidden by default.
