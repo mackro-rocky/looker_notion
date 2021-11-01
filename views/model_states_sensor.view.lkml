@@ -119,6 +119,16 @@ view: model_states_sensor {
       else null end ;;
   }
 
+  dimension: alerm_state {
+    type: string
+    sql: case ${model_type} when 'alarm' then   payload:data:state::string
+      else null end ;;
+  }
+  dimension: alarm_transition {
+    type: string
+    sql: case ${model_type} when 'alarm' then   data:transition::string
+      else null end ;;
+  }
 
 
   dimension: previous_model_state_id {
