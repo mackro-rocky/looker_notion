@@ -92,6 +92,11 @@ view: system_users_all {
     drill_fields: [id]
   }
 
+  measure: systems_users_count {
+    type: count_distinct
+    sql: ${TABLE}.USER_UD ;;
+  }
+
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
 
