@@ -71,7 +71,7 @@ view: model_states_sensor {
     type: string
     sql: case ${model_type} when 'waterleak' then case replace(payload:hardware_flavor,'"','')
               when 'breck' then   replace(replace(payload:data:state::string,'{"probe":"',''),'"}','')
-              when 'granite' then payload:data:state::string  end else payload:data:state::string else null end ;;
+              when 'granite' then payload:data:state::string else payload:data:state::string end else null end ;;
 
   }
 
