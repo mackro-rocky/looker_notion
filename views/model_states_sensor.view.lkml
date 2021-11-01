@@ -93,7 +93,7 @@ view: model_states_sensor {
   }
   dimension: sliding_door_state {
     type: string
-    sql: case ${model_type} when 'sliding' then replace(replace(payload:data:state::string,'{',''),'}','')
+    sql: case ${model_type} when 'sliding' then replace(replace(payload:data:state:door::string,'{',''),'}','')
       else null end ;;
   }
   dimension: previous_model_state_id {
