@@ -86,7 +86,11 @@ view: model_states_sensor {
       else null end ;;
   }
 
-
+  dimension: garage_door_state {
+    type: string
+    sql: case ${model_type} when 'garage_door' then replace(replace(payload:data:state:door::string,'{',''),'}','')
+      else null end ;;
+  }
 
   dimension: previous_model_state_id {
     type: string
