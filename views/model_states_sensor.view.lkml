@@ -54,6 +54,13 @@ view: model_states_sensor {
     sql: ${TABLE}."PAYLOAD" ;;
   }
 
+
+
+  dimension: hardware_flavor {
+    type: string
+    sql: ${TABLE}. payload:hardware_flavor::string ;;
+  }
+
   dimension: model_type {
     type: string
     sql: ${TABLE}.payload:model_type::string ;;
