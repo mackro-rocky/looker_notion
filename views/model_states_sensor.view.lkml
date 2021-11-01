@@ -103,6 +103,23 @@ view: model_states_sensor {
       else null end ;;
   }
 
+  dimension: battery_state {
+    type: string
+    sql: case ${model_type} when 'battery' then   payload:data:state:battery::string
+      else null end ;;
+  }
+  dimension: battery_decay {
+    type: string
+    sql: case ${model_type} when 'battery' then   payload:data:state:decay::string
+      else null end ;;
+  }
+  dimension: battery_transition {
+    type: string
+    sql: case ${model_type} when 'battery' then   data:transition::string
+      else null end ;;
+  }
+
+
 
   dimension: previous_model_state_id {
     type: string
