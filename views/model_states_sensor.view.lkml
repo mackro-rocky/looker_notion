@@ -96,6 +96,14 @@ view: model_states_sensor {
     sql: case ${model_type} when 'sliding' then replace(replace(payload:data:state:door::string,'{',''),'}','')
       else null end ;;
   }
+
+  dimension: sensor_connection_state {
+    type: string
+    sql: case ${model_type} when 'sensor_connection' then   payload:data:bridge_online::string
+      else null end ;;
+  }
+
+
   dimension: previous_model_state_id {
     type: string
     sql: ${TABLE}."PREVIOUS_MODEL_STATE_ID" ;;
