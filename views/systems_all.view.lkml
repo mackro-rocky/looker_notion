@@ -177,6 +177,11 @@ view: systems_all {
     drill_fields: [id, name, memberships.id]
   }
 
+  measure: systems_count{
+    type:  count_distinct
+    sql: ${TABLE}.UUID ;;
+  }
+
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
 
