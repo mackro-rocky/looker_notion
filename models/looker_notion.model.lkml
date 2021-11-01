@@ -56,9 +56,6 @@ explore: sensor_messages {
   }
 }
 
-explore: sensors_all {}
-explore: users_all {}
-explore: system_users_all {}
 
 explore: systems_all {
   view_label: "Systems"
@@ -121,5 +118,10 @@ explore: model_states_sensor {
     relationship: one_to_many
     sql_on:  ${users_all.uuid} = ${system_users_all.user_id} ;;
   }
+
+### Commented out for now
+#  explore: sensors_all {}
+#  explore: users_all {}
+#  explore: system_users_all {}
 
 }
