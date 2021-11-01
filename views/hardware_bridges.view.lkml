@@ -92,7 +92,10 @@ view: hardware_bridges {
     type: count
     drill_fields: [id]
   }
-
+  measure: hw_bridge_count {
+    type: count_distinct
+    sql: ${TABLE}.ID ;;
+  }
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
 
