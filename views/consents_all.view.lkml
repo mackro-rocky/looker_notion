@@ -18,6 +18,12 @@ view: consents_all {
   # A dimension is a groupable field that can be used to filter query results.
   # This dimension will be called "Consented Via ID" in Explore.
 
+
+  dimension: is_installed {
+    type: yesno
+    sql: ${TABLE}.ID IS NOT NULL ;;
+  }
+
   dimension: consented_via_id {
     type: string
     sql: ${TABLE}."CONSENTED_VIA_ID" ;;
