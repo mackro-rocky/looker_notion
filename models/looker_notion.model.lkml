@@ -95,7 +95,7 @@ explore: systems_all {
   join: sensors_all {
     view_label: "Sensors"
     relationship: many_to_one
-    sql_on: ${sensors_all.system_id} = ${systems_all.id}  ;;
+    sql_on: ${sensors_all.system_id} = ${systems_all.id}  and  ${sensors_all.last_bridge_hardware_id} = ${bridges_all.hardware_id};;
   }
 }
 
