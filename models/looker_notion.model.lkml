@@ -92,6 +92,11 @@ explore: systems_all {
     relationship: many_to_one
     sql_on: ${consents_all.group_id} = ${groups.id}  ;;
   }
+  join: sensors_all {
+    view_label: "Sensors"
+    relationship: many_to_one
+    sql_on: ${sensors_all.system_id} = ${systems_all.id}  ;;
+  }
 }
 
 
