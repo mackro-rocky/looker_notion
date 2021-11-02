@@ -82,7 +82,18 @@ explore: systems_all {
     relationship: one_to_many
     sql_on: ${system_users_all.user_id} = ${users_all.uuid} ;;
   }
+  join: consents_all {
+    view_label: "Consents"
+    relationship: many_to_one
+    sql_on: ${consents_all.system_id} = ${systems_all.uuid}  ;;
+  }
+  join: groups {
+    view_label: "Groups"
+    relationship: many_to_one
+    sql_on: ${consents_all.group_id} = ${groups.id}  ;;
+  }
 }
+
 
 explore: model_states_sensor {
   label: "Model States"
