@@ -97,6 +97,11 @@ explore: systems_all {
     relationship: many_to_one
     sql_on: ${sensors_all.system_id} = ${systems_all.id}  and  ${sensors_all.last_bridge_hardware_id} = ${bridges_all.hardware_id};;
   }
+  join: hardware_sensors {
+    view_label: "Hardware Sensors"
+    relationship: many_to_one
+    sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id}  };;
+  }
 }
 
 
