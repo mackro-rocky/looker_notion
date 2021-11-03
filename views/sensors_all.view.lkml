@@ -190,6 +190,46 @@ view: sensors_all {
     type: count
     drill_fields: [detail*]
   }
+  measure: num_sensors_ever {
+    type: count_distinct
+    sql: ${hardware_id} ;;
+  }
+  measure: num_undeleted_sensors {
+    type: count_distinct
+    sql: iff (${TABLE}.deleted_at IS NULL, sen.id,null) ;;
+  }
+  measure: num_deleted_sensors {
+    type: count_distinct
+    sql: iff (${TABLE}.deleted_at IS NOT NULL, sen.id,null) ;;
+  }
+  measure: num_missing_sensors {
+    type: count_distinct
+    sql: iff (${TABLE}.missing_at IS NOT NULL, sen.id,null) ;;
+  }
+  measure: num_active_sensors {
+    type: count_distinct
+    sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at} IS NULL,sen.id,null) ;;
+  }
+  measure: last_sensor_deleted_at {
+    type: max
+    sql: CASE
+                   WHEN count(iff (${TABLE}.deleted_at IS NOT NULL, sen.id,null)) > 0 THEN NULL
+                   ELSE MAX(${TABLE}.deleted_at) END  ;;
+  }
+  measure: last_sensor_missing_at {
+    type: max
+    sql: CASE
+                   WHEN count(iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,sen.id,null)) > 0 THEN NULL
+                   ELSE MAX(${TABLE}.missing_at) END  ;;
+  }
+  measure: first_sensor_installed_at {
+    type: min
+    sql: ${TABLE}.installed_at ;;
+  }
+
+
+
+
 
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
