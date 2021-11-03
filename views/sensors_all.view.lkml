@@ -223,8 +223,8 @@ view: sensors_all {
                    ELSE MAX(${TABLE}.missing_at) END  ;;
   }
   measure: first_sensor_installed_at {
-    type: min
-    sql: ${TABLE}.installed_at ;;
+    type: date_time
+    sql: MIN(${TABLE}.installed_at) ;;
   }
 
 
