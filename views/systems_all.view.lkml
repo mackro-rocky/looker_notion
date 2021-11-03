@@ -93,6 +93,13 @@ view: systems_all {
     sql: ${TABLE}."LONGITUDE" ;;
   }
 
+
+  dimension: lat_long {
+    type: location
+    sql_latitude:  ${latitude} ;;
+    sql_longitude: ${longitude};;
+  }
+
   dimension: membership_id {
     type: number
     # hidden: yes
