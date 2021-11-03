@@ -60,6 +60,21 @@ view: hardware_sensors {
     sql: ${TABLE}."REVISION" ;;
   }
 
+  dimension: has_loveland {
+    type: yesno
+    sql: BOOLOR(case ${TABLE}."REVISION" when 3 then 1 else 0 end , 0) ;;
+  }
+  dimension: has_granite {
+    type: yesno
+    sql: BOOLOR(case ${TABLE}."REVISION" when 4 then 1 else 0 end , 0) ;;
+  }
+  dimension: has_breck {
+    type: yesno
+    sql: BOOLOR(case ${TABLE}."REVISION" when 5 then 1 when 6 then 1 else 0 end , 0) ;;
+  }
+
+
+
   dimension: serial_number {
     type: string
     sql: ${TABLE}."SERIAL_NUMBER" ;;
