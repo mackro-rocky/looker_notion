@@ -112,6 +112,10 @@ view: hardware_sensors {
     type: count
     drill_fields: [id]
   }
+  measure: serial_number_count {
+    type: count_distinct
+  }
+
 
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
