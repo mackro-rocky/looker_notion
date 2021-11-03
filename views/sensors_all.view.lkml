@@ -196,30 +196,30 @@ view: sensors_all {
   }
   measure: num_undeleted_sensors {
     type: count_distinct
-    sql: iff (${TABLE}.deleted_at IS NULL, sen.id,null) ;;
+    sql: iff (${TABLE}.deleted_at IS NULL, ${id},null) ;;
   }
   measure: num_deleted_sensors {
     type: count_distinct
-    sql: iff (${TABLE}.deleted_at IS NOT NULL, sen.id,null) ;;
+    sql: iff (${TABLE}.deleted_at IS NOT NULL, ${id},null) ;;
   }
   measure: num_missing_sensors {
     type: count_distinct
-    sql: iff (${TABLE}.missing_at IS NOT NULL, sen.id,null) ;;
+    sql: iff (${TABLE}.missing_at IS NOT NULL, ${id},null) ;;
   }
   measure: num_active_sensors {
     type: count_distinct
-    sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,sen.id,null) ;;
+    sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,${id},null) ;;
   }
   measure: last_sensor_deleted_at {
     type: max
     sql: CASE
-                   WHEN count(iff (${TABLE}.deleted_at IS NOT NULL, sen.id,null)) > 0 THEN NULL
+                   WHEN count(iff (${TABLE}.deleted_at IS NOT NULL, ${id},null)) > 0 THEN NULL
                    ELSE MAX(${TABLE}.deleted_at) END  ;;
   }
   measure: last_sensor_missing_at {
     type: max
     sql: CASE
-                   WHEN count(iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,sen.id,null)) > 0 THEN NULL
+                   WHEN count(iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,${id},null)) > 0 THEN NULL
                    ELSE MAX(${TABLE}.missing_at) END  ;;
   }
   measure: first_sensor_installed_at {
