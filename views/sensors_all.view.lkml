@@ -191,8 +191,8 @@ view: sensors_all {
     drill_fields: [detail*]
   }
   measure: num_sensors_ever {
-    type: count_distinct
-    sql: ${hardware_id} ;;
+    type: number
+    sql: count(${hardware_id}) ;;
   }
   measure: num_undeleted_sensors {
     type: count_distinct
@@ -211,13 +211,13 @@ view: sensors_all {
     sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,${id},null) ;;
   }
   measure: last_sensor_deleted_at {
-    type: max
+    type: number
     sql: CASE
                    WHEN count(iff (${TABLE}.deleted_at IS NOT NULL, ${id},null)) > 0 THEN NULL
                    ELSE MAX(${TABLE}.deleted_at) END  ;;
   }
   measure: last_sensor_missing_at {
-    type: max
+    type: number
     sql: CASE
                    WHEN count(iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,${id},null)) > 0 THEN NULL
                    ELSE MAX(${TABLE}.missing_at) END  ;;
