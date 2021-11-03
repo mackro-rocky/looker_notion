@@ -208,7 +208,7 @@ view: sensors_all {
   }
   measure: num_active_sensors {
     type: count_distinct
-    sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at} IS NULL,sen.id,null) ;;
+    sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,sen.id,null) ;;
   }
   measure: last_sensor_deleted_at {
     type: max
