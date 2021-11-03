@@ -116,7 +116,10 @@ view: hardware_sensors {
     type: count_distinct
     sql: ${serial_number} ;;
   }
-
+  measure: max_hws_revision {
+    type: max
+    sql: ${revision} ;;
+  }
 
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
