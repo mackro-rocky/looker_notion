@@ -100,7 +100,7 @@ explore: systems_all {
   join: hardware_sensors {
     view_label: "Hardware Sensors"
     relationship: many_to_one
-    sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id}  };;
+    sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id} ;;
   }
 }
 
