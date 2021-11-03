@@ -96,6 +96,10 @@ view: hardware_bridges {
     type: count_distinct
     sql: ${TABLE}.ID ;;
   }
+  measure: serial_number_count {
+    type: count_distinct
+    sql: ${serial_number};;
+  }
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
 
