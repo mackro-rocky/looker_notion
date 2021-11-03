@@ -114,6 +114,7 @@ view: hardware_sensors {
   }
   measure: serial_number_count {
     type: count_distinct
+    sql: ${serial_number} ;;
   }
 
 
