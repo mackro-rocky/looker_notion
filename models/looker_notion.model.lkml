@@ -54,6 +54,16 @@ explore: sensor_messages {
     relationship: one_to_many
     sql_on: ${system_users_all.user_id} = ${users_all.uuid} ;;
   }
+  join: sensors_all {
+    view_label: "Sensors"
+    relationship: many_to_one
+    sql_on: ${sensors_all.system_id} = ${systems_all.id}  ;;
+  }
+  join: hardware_sensors {
+    view_label: "Hardware Sensors"
+    relationship: many_to_one
+    sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id} ;;
+  }
 }
 
 
