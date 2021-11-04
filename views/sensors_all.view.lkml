@@ -191,8 +191,8 @@ view: sensors_all {
     drill_fields: [detail*]
   }
   measure: num_sensors_ever {
-    type: number
-    sql: count(${hardware_id}) ;;
+    type: count_distinct
+    sql: ${hardware_id} ;;
   }
   measure: num_undeleted_sensors {
     type: count_distinct
