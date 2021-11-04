@@ -56,8 +56,8 @@ explore: sensor_messages {
   }
   join: sensors_all {
     view_label: "Sensors"
-    relationship: many_to_one
-    sql_on: ${sensors_all.system_id} = ${systems_all.id}  ;;
+    relationship:many_to_one
+    sql_on: ${sensors_all.system_id} = ${sensor_messages.hardware_id}  ;;
   }
   join: hardware_sensors {
     view_label: "Hardware Sensors"
