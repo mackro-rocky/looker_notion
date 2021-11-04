@@ -158,8 +158,8 @@ view: sensor_messages {
     sql: (${TABLE}.data:temperature/1000 *9/5) + 32;;
   }
   measure: max_received_time {
-    type: max
-    sql: ${received_time} ;;
+    type: date_time
+    sql: MAX(${received_time}) ;;
   }
 
   # These sum and average measures are hidden by default.
