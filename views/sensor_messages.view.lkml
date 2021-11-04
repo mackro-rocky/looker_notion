@@ -157,7 +157,10 @@ view: sensor_messages {
     type: average
     sql: (${TABLE}.data:temperature/1000 *9/5) + 32;;
   }
-
+  measure: max_received_time {
+    type: max
+    sql: ${received_time} ;;
+  }
 
   # These sum and average measures are hidden by default.
   # If you want them to show up in your explore, remove hidden: yes.
