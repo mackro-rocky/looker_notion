@@ -158,7 +158,7 @@ view: sensor_messages {
     sql: (${TABLE}.data:temperature/1000 *9/5) + 32;;
   }
   measure: max_received_time {
-    type: date_time
+    type: string
     sql: MAX(${received_time}) ;;
   }
 
