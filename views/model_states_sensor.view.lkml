@@ -146,4 +146,8 @@ view: model_states_sensor {
     type: count
     drill_fields: [filename]
   }
+  measure: max_received_time {
+    type: string
+    sql: MAX(${TABLE}${data_received_time}) ;;
+  }
 }
