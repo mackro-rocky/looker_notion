@@ -137,6 +137,36 @@ view: sensor_messages {
                               else 'Other' end ;;
   }
 
+  dimension: type_eng_2 {
+    type: string
+    sql: case ${TABLE}."TYPE" when 4 then 'Active Task Report'
+  when 128 then 'Boot Report' when 129 then 'Keep Alive'
+  when 65552 then 'Connection Start' when 65553 then 'Connection Stop'
+  when 131073 then 'Voltage Start' when 131074 then 'Voltage Stop' when 131200 then 'Voltage Report'
+  when 1048577 then 'Temperature Start' when 1048578 then 'Temperature Stop' when 1048704 then 'Temperature Report'
+  when 1114113 then 'Leak Start' when 1114114 then 'Leak Stop' when 1114116 then 'Leak Read Register' when 1114240 then 'Leak Report'
+  when 1179649 then 'VH Start' when 1179650 then 'VH Stop' when 1179652 then 'VH Read Register' when 1179653 then 'VH Force' when 1179654 then 'VH Reset'
+  when 1179775 then 'VH|0x7f' when 1179776 then 'VH Report'
+  when 1245185 then 'HH Start' when 1245186 then 'HH Stop' when 1245311 then 'HH|0x7f' when 1245312 then 'HH Report'
+  when 1310721 then 'Sliding Start' when 1310722 then 'Sliding Stop' when 1310724 then 'Sliding Read Register'
+  when 1310725 then 'Sliding Force' when 1310848 then 'Sliding Report'
+  when 1441794 then '0x16|0x02' when 1441798 then '0x16|0x06'
+  when 1507329 then 'Sound Start' when 1507330 then 'Sound Stop' when 1507332 then 'Sound Read Register'
+  when 1507455 then 'Sound|0x7f' when 1507456 then 'Sound v3 Report' when 1507457 then 'Sound v4 Report'
+  when 0 then 'Granite Voltage Report' when 4 then 'Granite Temperature Report'
+  when 5 then 'Granite Probe Leak' when 8 then 'Granite Probe Short' when 21 then 'Granite Probe Normal'
+  when 10 then 'Granite BMX VH Report' when 11 then 'Granite BMX HH report' when 12 then 'Granite Sliding Report'
+  when 16 then 'Granite Sound Report 0' when 17 then 'Granite Sound Report 1' when 18 then 'Granite Sound Report 2' when 19 then 'Granite Sound Report 3'
+  when 33 then 'Granite Sound Glitch Count' when 34 then 'Granite Sound Rate Report' when 35 then 'Granite Sound Configuration'
+  when 38 then 'Granite ST VH Configuration' when 39 then 'Granite ST VH Period'
+  when 112 then 'Granite 0x70 Error' when 114 then 'Granite 0x72 Error' when 115 then 'Granite Debug Message'
+  when 116 then 'Granite 0x74 motion model' when 223 then 'Granite 0xDF Message Identity'
+  when 240 then 'Granite 0xF0' when 241 then 'Granite 0xF1' when 243 then 'Granite g-force threshold' when 244 then 'Granite audio gain'
+  when 252 then 'Granite 0xFC motion calibrated' when 255 then 'Granite sensor hw revision'
+  when 2816 then 'Granite ST HH Report' when 3586 then 'Granite ST VH Report'
+  else ${TABLE}."TYPE" end ;;
+  }
+
 
 
   dimension: version {
