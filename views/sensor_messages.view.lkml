@@ -164,7 +164,7 @@ view: sensor_messages {
   when 240 then 'Granite 0xF0' when 241 then 'Granite 0xF1' when 243 then 'Granite g-force threshold' when 244 then 'Granite audio gain'
   when 252 then 'Granite 0xFC motion calibrated' when 255 then 'Granite sensor hw revision'
   when 2816 then 'Granite ST HH Report' when 3586 then 'Granite ST VH Report'
-  else 'Other' end ;;
+  else cast(${TABLE}."TYPE" as string) end ;;
   }
 
 
