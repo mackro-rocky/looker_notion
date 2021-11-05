@@ -148,6 +148,6 @@ view: model_states_sensor {
   }
   measure: max_received_time {
     type: string
-    sql: MAX(${TABLE}.{data_received_time}) ;;
+    sql: MAX(${data_received_time}) ;;
   }
 }
