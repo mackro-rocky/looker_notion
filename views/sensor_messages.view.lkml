@@ -118,6 +118,12 @@ view: sensor_messages {
     sql: ${TABLE}."TYPE" ;;
   }
 
+  dimension: hex_type {
+    type: string
+    sql: concat('0x', ltrim(lower(to_char(${TABLE}."TYPE",'XXXXXX')))) ;;
+  }
+
+
   dimension: type_eng {
     type: string
     sql: case ${TABLE}."TYPE" when 4 then 'Active Tasks' when 1048704 then 'Temp' when 1179776 then 'Acceleration' when 1179652 then 'Home Position'
