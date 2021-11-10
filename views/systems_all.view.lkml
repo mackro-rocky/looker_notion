@@ -80,7 +80,7 @@ view: systems_all {
 
   dimension: latitude {
     type: number
-    sql: ${TABLE}."LATITUDE"::NUMBER(11,5) ;;
+    sql: ${TABLE}."LATITUDE" ;;
   }
 
   dimension: locality {
@@ -90,14 +90,14 @@ view: systems_all {
 
   dimension: longitude {
     type: number
-    sql: ${TABLE}."LONGITUDE"::NUMBER(11,5) ;;
+    sql: ${TABLE}."LONGITUDE" ;;
   }
 
 
   dimension: lat_long {
     type: location
-    sql_latitude:  ${latitude} ;;
-    sql_longitude: ${longitude};;
+    sql_latitude:  ${latitude}::NUMBER(11,5) ;;
+    sql_longitude: ${longitude}::NUMBER(11,5);;
   }
 
   dimension: membership_id {
