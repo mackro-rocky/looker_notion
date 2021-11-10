@@ -98,6 +98,7 @@ view: systems_all {
     type: location
     sql_latitude:  ${latitude}::NUMBER(11,5) ;;
     sql_longitude: ${longitude}::NUMBER(11,5);;
+    drill_fields: [users_all.email]
   }
 
   dimension: membership_id {
