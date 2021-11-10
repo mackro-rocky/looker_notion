@@ -80,7 +80,7 @@ view: systems_all {
 
   dimension: latitude {
     type: number
-    sql: ${TABLE}."LATITUDE" ;;
+    sql: ${TABLE}."LATITUDE"::NUMBER(11,5) ;;
   }
 
   dimension: locality {
@@ -90,7 +90,7 @@ view: systems_all {
 
   dimension: longitude {
     type: number
-    sql: ${TABLE}."LONGITUDE" ;;
+    sql: ${TABLE}."LONGITUDE"::NUMBER(11,5) ;;
   }
 
 
