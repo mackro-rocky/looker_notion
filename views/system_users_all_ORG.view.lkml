@@ -1,8 +1,8 @@
 # The name of this view in Looker is "System Users All"
-view: system_users_all {
+view: system_users_all_ORG {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: "SNOWFLAKE_POC"."SYSTEM_USERS_ALL"
+  sql_table_name: "PUBLIC"."SYSTEM_USERS_ALL"
     ;;
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.
@@ -16,62 +16,6 @@ view: system_users_all {
 
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
-
-  dimension_group: _sdc_batched {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: CAST(${TABLE}."_SDC_BATCHED_AT" AS TIMESTAMP_NTZ) ;;
-  }
-
-  dimension_group: _sdc_received {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: CAST(${TABLE}."_SDC_RECEIVED_AT" AS TIMESTAMP_NTZ) ;;
-  }
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called " Sdc Sequence" in Explore.
-
-  dimension: _sdc_sequence {
-    type: number
-    sql: ${TABLE}."_SDC_SEQUENCE" ;;
-  }
-
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
-
-  measure: total__sdc_sequence {
-    type: sum
-    sql: ${_sdc_sequence} ;;
-  }
-
-  measure: average__sdc_sequence {
-    type: average
-    sql: ${_sdc_sequence} ;;
-  }
-
-  dimension: _sdc_table_version {
-    type: number
-    sql: ${TABLE}."_SDC_TABLE_VERSION" ;;
-  }
 
   dimension_group: created {
     type: time
@@ -100,6 +44,10 @@ view: system_users_all {
     ]
     sql: CAST(${TABLE}."DELETED_AT" AS TIMESTAMP_NTZ) ;;
   }
+
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Mode" in Explore.
 
   dimension: mode {
     type: number
@@ -135,12 +83,44 @@ view: system_users_all {
     sql: ${TABLE}."USER_ID" ;;
   }
 
+  # A measure is a field that uses a SQL aggregate function. Here are count, sum, and average
+  # measures for numeric dimensions, but you can also add measures of many different types.
+  # Click on the type parameter to see all the options in the Quick Help panel on the right.
+
   measure: count {
     type: count
     drill_fields: [id]
   }
+
   measure: systems_users_count {
     type: count_distinct
     sql: ${TABLE}.ID ;;
+  }
+
+  # These sum and average measures are hidden by default.
+  # If you want them to show up in your explore, remove hidden: yes.
+
+  measure: total_mode {
+    type: sum
+    hidden: yes
+    sql: ${mode} ;;
+  }
+
+  measure: average_mode {
+    type: average
+    hidden: yes
+    sql: ${mode} ;;
+  }
+
+  measure: total_role {
+    type: sum
+    hidden: yes
+    sql: ${role} ;;
+  }
+
+  measure: average_role {
+    type: average
+    hidden: yes
+    sql: ${role} ;;
   }
 }
