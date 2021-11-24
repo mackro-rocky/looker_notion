@@ -135,4 +135,12 @@ view: hardware_bridges {
     type: count
     drill_fields: [id]
   }
+  measure: hw_bridge_count {
+    type: count_distinct
+    sql: ${TABLE}.ID ;;
+  }
+  measure: serial_number_count {
+    type: count_distinct
+    sql: ${serial_number};;
+  }
 }
