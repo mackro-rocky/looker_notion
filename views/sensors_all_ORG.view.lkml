@@ -1,8 +1,8 @@
 # The name of this view in Looker is "Sensors All"
-view: sensors_all {
+view: sensors_all_ORG {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: "SNOWFLAKE_POC"."SENSORS_ALL"
+  sql_table_name: "PUBLIC"."SENSORS_ALL"
     ;;
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.
@@ -17,62 +17,6 @@ view: sensors_all {
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
-  dimension_group: _sdc_batched {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: CAST(${TABLE}."_SDC_BATCHED_AT" AS TIMESTAMP_NTZ) ;;
-  }
-
-  dimension_group: _sdc_received {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: CAST(${TABLE}."_SDC_RECEIVED_AT" AS TIMESTAMP_NTZ) ;;
-  }
-
-  # Here's what a typical dimension looks like in LookML.
-  # A dimension is a groupable field that can be used to filter query results.
-  # This dimension will be called " Sdc Sequence" in Explore.
-
-  dimension: _sdc_sequence {
-    type: number
-    sql: ${TABLE}."_SDC_SEQUENCE" ;;
-  }
-
-  # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
-  # measures for this dimension, but you can also add measures of many different aggregates.
-  # Click on the type parameter to see all the options in the Quick Help panel on the right.
-
-  measure: total__sdc_sequence {
-    type: sum
-    sql: ${_sdc_sequence} ;;
-  }
-
-  measure: average__sdc_sequence {
-    type: average
-    sql: ${_sdc_sequence} ;;
-  }
-
-  dimension: _sdc_table_version {
-    type: number
-    sql: ${TABLE}."_SDC_TABLE_VERSION" ;;
-  }
-
   dimension_group: calibrated {
     type: time
     timeframes: [
@@ -84,7 +28,7 @@ view: sensors_all {
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."CALIBRATED_AT" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."CALIBRATED_AT" ;;
   }
 
   dimension_group: created {
@@ -98,7 +42,7 @@ view: sensors_all {
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."CREATED_AT" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."CREATED_AT" ;;
   }
 
   dimension_group: deleted {
@@ -115,6 +59,15 @@ view: sensors_all {
     sql: CAST(${TABLE}."DELETED_AT" AS TIMESTAMP_NTZ) ;;
   }
 
+  # Here's what a typical dimension looks like in LookML.
+  # A dimension is a groupable field that can be used to filter query results.
+  # This dimension will be called "Deleted By" in Explore.
+
+  dimension: deleted_by {
+    type: string
+    sql: ${TABLE}."DELETED_BY" ;;
+  }
+
   dimension: firmware_version {
     type: string
     sql: ${TABLE}."FIRMWARE_VERSION" ;;
@@ -122,6 +75,7 @@ view: sensors_all {
 
   dimension: hardware_id {
     type: string
+    # hidden: yes
     sql: ${TABLE}."HARDWARE_ID" ;;
   }
 
@@ -146,7 +100,7 @@ view: sensors_all {
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."INSTALLED_AT" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."INSTALLED_AT" ;;
   }
 
   dimension: last_bridge_hardware_id {
@@ -165,11 +119,12 @@ view: sensors_all {
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."LAST_REPORTED_AT" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."LAST_REPORTED_AT" ;;
   }
 
   dimension: location_id {
     type: number
+    # hidden: yes
     sql: ${TABLE}."LOCATION_ID" ;;
   }
 
@@ -184,7 +139,7 @@ view: sensors_all {
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."MISSING_AT" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."MISSING_AT" ;;
   }
 
   dimension: name {
@@ -194,6 +149,7 @@ view: sensors_all {
 
   dimension: surface_type_id {
     type: string
+    # hidden: yes
     sql: ${TABLE}."SURFACE_TYPE_ID" ;;
   }
 
@@ -213,7 +169,7 @@ view: sensors_all {
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."UPDATED_AT" AS TIMESTAMP_NTZ) ;;
+    sql: ${TABLE}."UPDATED_AT" ;;
   }
 
   dimension: user_id {
@@ -225,6 +181,10 @@ view: sensors_all {
     type: string
     sql: ${TABLE}."UUID" ;;
   }
+
+  # A measure is a field that uses a SQL aggregate function. Here are count, sum, and average
+  # measures for numeric dimensions, but you can also add measures of many different types.
+  # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: count {
     type: count
@@ -266,7 +226,27 @@ view: sensors_all {
     type: date_time
     sql: MIN(${TABLE}.installed_at) ;;
   }
-# ----- Sets of fields for drilling ------
+
+
+
+
+
+  # These sum and average measures are hidden by default.
+  # If you want them to show up in your explore, remove hidden: yes.
+
+  measure: total_hardware_revision {
+    type: sum
+    hidden: yes
+    sql: ${hardware_revision} ;;
+  }
+
+  measure: average_hardware_revision {
+    type: average
+    hidden: yes
+    sql: ${hardware_revision} ;;
+  }
+
+  # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
       id,
