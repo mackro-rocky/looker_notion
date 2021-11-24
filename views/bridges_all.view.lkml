@@ -169,8 +169,13 @@ view: bridges_all {
     sql: ${TABLE}."UUID" ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id, name]
-  }
+    measure: count {
+      type: count
+      drill_fields: [id, name, hardware.id]
+    }
+
+    measure: bridges_count {
+      type: count_distinct
+      sql: ${TABLE}.ID ;;
+    }
 }
