@@ -78,6 +78,11 @@ view: consents_all {
     sql: ${TABLE}."CONSENTED_VIA_ID" ;;
   }
 
+  dimension: is_installed {
+    type: yesno
+    sql: ${TABLE}.ID IS NOT NULL ;;
+  }
+
   dimension: consenter_id {
     type: string
     sql: ${TABLE}."CONSENTER_ID" ;;
@@ -135,8 +140,8 @@ view: consents_all {
     sql: CAST(${TABLE}."UPDATED_AT" AS TIMESTAMP_NTZ) ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id]
-  }
+    measure: count {
+      type: count
+      drill_fields: [id, groups.name, groups.id]
+    }
 }
