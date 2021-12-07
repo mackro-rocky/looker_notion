@@ -80,6 +80,7 @@ explore: systems_all {
     view_label: "HW Bridges"
     relationship: many_to_one
     sql_on: ${bridges_all.hardware_id} = ${hardware_bridges.id} ;;
+    type: full_outer
   }
 
   join: system_users_all  {
@@ -106,11 +107,13 @@ explore: systems_all {
     view_label: "Sensors"
     relationship: many_to_one
     sql_on: ${sensors_all.system_id} = ${systems_all.id}  ;;
+    type: full_outer
   }
   join: hardware_sensors {
     view_label: "Hardware Sensors"
     relationship: many_to_one
     sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id} ;;
+    type: full_outer
   }
 }
 
