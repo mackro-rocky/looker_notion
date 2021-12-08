@@ -70,7 +70,7 @@ explore: sensor_messages {
 explore: systems_all {
   view_label: "Systems"
   label: "Systems"
-
+  sql_always_where: CAST(bridges_all."DELETED_AT" AS TIMESTAMP_NTZ)) is null  and CAST(sensors_all."DELETED_AT" AS TIMESTAMP_NTZ)) is null;;
   join: bridges_all {
     view_label: "Bridges"
     relationship: many_to_one
