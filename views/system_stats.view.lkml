@@ -322,7 +322,10 @@ FROM system_status ;;
     type: number
     sql: count(iff (status = 'no bridge installed',${TABLE}."ID",null)) ;;
   }
-
+  measure: system_deleted{
+    type: number
+    sql: count(iff (status = 'system deleted',${TABLE}."ID",null)) ;;
+  }
 
 }
 #   dimension: lifetime_orders {
