@@ -178,7 +178,7 @@ FROM system_status ;;
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."first_sensor_installed_at" AS TIMESTAMP_NTZ) ;;
+    sql: CAST(${TABLE}."FIRST_SENSOR_INSTALLED_AT" AS TIMESTAMP_NTZ) ;;
   }
   dimension_group: last_sensor_deleted {
     type: time
@@ -191,7 +191,7 @@ FROM system_status ;;
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."last_sensor_deleted_at" AS TIMESTAMP_NTZ) ;;
+    sql: CAST(${TABLE}."LAST_SENSOR_DELETED_AT" AS TIMESTAMP_NTZ) ;;
   }
   dimension_group: last_sensor_missing {
     type: time
@@ -204,7 +204,7 @@ FROM system_status ;;
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."last_sensor_missing_at" AS TIMESTAMP_NTZ) ;;
+    sql: CAST(${TABLE}."LAST_SENSOR_MISSING_AT" AS TIMESTAMP_NTZ) ;;
   }
   dimension: num_bridges_ever {
     type: number
@@ -230,7 +230,7 @@ FROM system_status ;;
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."first_bridge_created_at" AS TIMESTAMP_NTZ) ;;
+    sql: CAST(${TABLE}."FIRST_BRIDGE_CREATED_AT" AS TIMESTAMP_NTZ) ;;
   }
   dimension_group: last_bridge_deleted {
     type: time
@@ -243,7 +243,7 @@ FROM system_status ;;
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."last_bridge_deleted_at" AS TIMESTAMP_NTZ) ;;
+    sql: CAST(${TABLE}."LAST_BRIDGE_DELETED_AT" AS TIMESTAMP_NTZ) ;;
   }
   dimension_group: last_bridge_missing {
     type: time
@@ -256,7 +256,7 @@ FROM system_status ;;
       quarter,
       year
     ]
-    sql: CAST(${TABLE}."last_bridge_missing_at" AS TIMESTAMP_NTZ) ;;
+    sql: CAST(${TABLE}."LAST_BRIDGE_MISSING_AT" AS TIMESTAMP_NTZ) ;;
   }
   dimension: max_hw_revision {
     type: string
