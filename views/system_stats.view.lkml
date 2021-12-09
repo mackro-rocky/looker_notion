@@ -270,6 +270,59 @@ FROM system_status ;;
     type: number
     sql: count(iff (status IN ('active', 'missing', 'dormant', 'churned'),${TABLE}."ID",null)) ;;
   }
+  measure: installed_system_count{
+    type: number
+    sql: count(iff (status IN ('active', 'missing', 'dormant', 'churned', 'abandoned', 'zombies','sensors deleted', 'bridges deleted', 'system deleted'),${TABLE}."ID",null)) ;;
+  }
+  measure: active{
+    type: number
+    sql: count(iff (status = 'active',${TABLE}."ID",null)) ;;
+  }
+  measure: missing{
+    type: number
+    sql: count(iff (status = 'missing',${TABLE}."ID",null)) ;;
+  }
+  measure: dormant{
+    type: number
+    sql: count(iff (status = 'dormant',${TABLE}."ID",null)) ;;
+  }
+  measure: churned{
+    type: number
+    sql: count(iff (status = 'churned',${TABLE}."ID",null)) ;;
+  }
+  measure: abandoned{
+    type: number
+    sql: count(iff (status = 'abandoned',${TABLE}."ID",null)) ;;
+  }
+  measure: zombies{
+    type: number
+    sql: count(iff (status = 'zombies',${TABLE}."ID",null)) ;;
+  }
+  measure: sensors_deleted{
+    type: number
+    sql: count(iff (status = 'sensors deleted',${TABLE}."ID",null)) ;;
+  }
+  measure: bridges_deleted{
+    type: number
+    sql: count(iff (status = 'bridges deleted',${TABLE}."ID",null)) ;;
+  }
+  measure: no_sensors_installed{
+    type: number
+    sql: count(iff (status = 'no sensors installed',${TABLE}."ID",null)) ;;
+  }
+  measure: loveland_only{
+    type: number
+    sql: count(iff (status = 'loveland only',${TABLE}."ID",null)) ;;
+  }
+  measure: sony{
+    type: number
+    sql: count(iff (status = 'sony',${TABLE}."ID",null)) ;;
+  }
+  measure: no_bridge_installed{
+    type: number
+    sql: count(iff (status = 'no bridge installed',${TABLE}."ID",null)) ;;
+  }
+
 
 }
 #   dimension: lifetime_orders {
