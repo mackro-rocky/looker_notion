@@ -101,6 +101,7 @@
 SELECT
            id,
            uuid,
+           administrative_area,
            created_at,
            deleted_at,
            num_sensors_ever,
