@@ -66,6 +66,7 @@
            sys.uuid,
            sys.created_at,
            sys.deleted_at,
+           sys.administrative_area,
            sbs.num_sensors_ever,
            sbs.num_undeleted_sensors,
            sbs.num_active_sensors,
@@ -128,6 +129,10 @@ FROM system_status ;;
   dimension: uuid {
     type: string
     sql: ${TABLE}.uuid ;;
+  }
+  dimension: administrative_area {
+    type: string
+    sql: ${TABLE}.administrative_area ;;
   }
   dimension_group: created {
     type: time
