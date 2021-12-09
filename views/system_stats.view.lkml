@@ -142,6 +142,34 @@ FROM system_status ;;
     ]
     sql: CAST(${TABLE}."CREATED_AT" AS TIMESTAMP_NTZ) ;;
   }
+  dimension_group: deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."DELETED_AT" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension: num_sensors_ever {
+    type: number
+    sql: ${TABLE}.num_sensors_ever ;;
+  }
+  dimension: num_undeleted_sensors {
+    type: number
+    sql: ${TABLE}.num_undeleted_sensors ;;
+  }
+  dimension: num_active_sensors {
+    type: number
+    sql: ${TABLE}.num_active_sensors ;;
+  }
+
+
+
 }
 #   dimension: lifetime_orders {
 #     description: "The total number of orders for each user"

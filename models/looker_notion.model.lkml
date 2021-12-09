@@ -79,9 +79,7 @@ explore: systems_all {
     view_label: "HW Bridges"
     relationship: many_to_one
     sql_on: ${bridges_all.hardware_id} = ${hardware_bridges.id} ;;
-
   }
-
   join: system_users_all  {
     view_label: "System Users"
     relationship: one_to_many
