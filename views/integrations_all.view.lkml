@@ -59,11 +59,13 @@ view: integrations_all {
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total__sdc_sequence {
+    hidden: yes
     type: sum
     sql: ${_sdc_sequence} ;;
   }
 
   measure: average__sdc_sequence {
+    hidden: yes
     type: average
     sql: ${_sdc_sequence} ;;
   }
