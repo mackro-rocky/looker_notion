@@ -167,9 +167,105 @@ FROM system_status ;;
     type: number
     sql: ${TABLE}.num_active_sensors ;;
   }
+  dimension_group: first_sensor_installed {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."first_sensor_installed_at" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension_group: last_sensor_deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."last_sensor_deleted_at" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension_group: last_sensor_missing {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."last_sensor_missing_at" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension: num_bridges_ever {
+    type: number
+    sql: ${TABLE}.num_bridges_ever ;;
+  }
+  dimension: num_undeleted_bridges {
+    type: number
+    sql: ${TABLE}.num_undeleted_bridges ;;
+  }
+  dimension: num_active_bridges {
+    type: number
+    sql: ${TABLE}.num_active_bridges ;;
+  }
 
-
-
+  dimension_group: first_bridge_created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."first_bridge_created_at" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension_group: last_bridge_deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."last_bridge_deleted_at" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension_group: last_bridge_missing {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."last_bridge_missing_at" AS TIMESTAMP_NTZ) ;;
+  }
+  dimension: max_hw_revision {
+    type: string
+    sql: ${TABLE}.max_hw_revision ;;
+  }
+  dimension: status {
+    type: string
+    sql: ${TABLE}.status ;;
+  }
 }
 #   dimension: lifetime_orders {
 #     description: "The total number of orders for each user"
