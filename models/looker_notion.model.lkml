@@ -152,9 +152,9 @@ explore: model_states_sensor {
     sql_on:  ${users_all.uuid} = ${system_users_all.user_id} ;;
   }
 
+}
+explore: system_stats {}
 ### Commented out for now
 #  explore: sensors_all {}
 #  explore: users_all {}
 #  explore: system_users_all {}
-
-}
