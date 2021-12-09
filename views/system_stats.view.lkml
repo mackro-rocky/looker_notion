@@ -268,7 +268,7 @@ FROM system_status ;;
   }
   measure: retained_system_count{
     type: number
-    sql: count(iff (status IN ('active', 'missing', 'dormant', 'churned'),${TABLE}."id",null)) ;;
+    sql: count(iff (status IN ('active', 'missing', 'dormant', 'churned'),${TABLE}."ID",null)) ;;
   }
 
 }
