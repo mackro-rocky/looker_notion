@@ -112,6 +112,11 @@ explore: systems_all {
     sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id} ;;
 
   }
+  join: integrations_all {
+    view_label: "Integrations"
+    relationship: many_to_one
+    sql_on: ${integrations_all.system_id} = ${systems_all.uuid}  ;;
+  }
 }
 
 
