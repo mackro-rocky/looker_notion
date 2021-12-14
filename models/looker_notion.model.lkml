@@ -154,8 +154,30 @@ explore: model_states_sensor {
     relationship: one_to_many
     sql_on:  ${users_all.uuid} = ${system_users_all.user_id} ;;
   }
-
 }
+
+explore:  latest_model_state {
+  label: "Latest Model State"
+  view_label: "Latest Model State"
+
+  join: listeners_sensor_all {
+    view_label: "Listener Sensors"
+    relationship: one_to_many
+    sql_on:  ${latest_model_state.listener_id} = ${listeners_sensor_all.id} ;;
+  }
+
+  # join: task_types {
+  #   view_label: "Task Types"
+  #   relationship: one_to_many
+  #   sql_on:  ${task_type.id} = ${listeners_sensor_all.task_type_id} ;;
+  # }
+}
+
+explore: task_counts {
+  label: "Task Counts"
+  view_label: "Task Counts"
+}
+
 explore: system_stats {}
 ### Commented out for now
 #  explore: sensors_all {}
