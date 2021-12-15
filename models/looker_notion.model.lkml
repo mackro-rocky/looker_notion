@@ -42,7 +42,7 @@ explore: sensor_messages {
   join: systems_all {
     view_label: "Systems"
     relationship: one_to_many
-    sql_on: ${bridges_all.system_id} = ${systems_all.id} ;;
+    sql_on: ${sensors_all.system_id} = ${systems_all.id} ;;
   }
   join: system_users_all  {
     view_label: "System Users"
@@ -176,6 +176,29 @@ explore:  latest_model_state {
 explore: task_counts {
   label: "Task Counts"
   view_label: "Task Counts"
+}
+
+explore: hardware_sensors {
+  label: "Sensor Hardware"
+  view_label: "Sensor Hardware"
+
+  join: sensors_all {
+    view_label: "Ephemeral Sensors"
+    relationship: one_to_many
+    sql_on: ${hardware_sensors.id} = ${sensors_all.hardware_id} ;;
+  }
+
+  join: current_sensors {
+    view_label: "Current Sensors"
+    relationship: one_to_one
+    sql_on: ${hardware_sensors.id} = ${current_sensors.hardware_id} ;;
+  }
+
+  join: listeners_sensor_all {
+    view_label: "Sensor Listeners"
+    relationship: one_to_many
+    sql_on: ${sensors_all.uuid} = ${listeners_sensor_all.sensor_id} ;;
+  }
 }
 
 explore: system_stats {}

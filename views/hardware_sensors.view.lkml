@@ -136,29 +136,31 @@ view: hardware_sensors {
     sql: CAST(${TABLE}."UPDATED_AT" AS TIMESTAMP_NTZ) ;;
   }
 
-  dimension: has_loveland {
+  dimension: is_loveland {
     type: yesno
     sql: BOOLOR(case ${TABLE}."REVISION" when 3 then 1 else 0 end , 0) ;;
   }
-  dimension: has_granite {
+  dimension: is_granite {
     type: yesno
     sql: BOOLOR(case ${TABLE}."REVISION" when 4 then 1 else 0 end , 0) ;;
   }
-  dimension: has_breck {
+  dimension: is_breck {
     type: yesno
     sql: BOOLOR(case ${TABLE}."REVISION" when 5 then 1 when 6 then 1 else 0 end , 0) ;;
   }
+
+  # dimension: current_sensor_uuid {
+  #   type: string
+  #   sql: ${current_sensors.uuid} ;;
+  # }
 
   measure: count {
     type: count
     drill_fields: [id]
   }
-  measure: serial_number_count {
+  measure: ephemeral_sensor_count {
     type: count_distinct
-    sql: ${serial_number} ;;
+    sql: ${sensors_all.uuid} ;;
   }
-  measure: max_hws_revision {
-    type: max
-    sql: ${revision} ;;
-  }
+
 }
