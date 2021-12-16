@@ -226,46 +226,28 @@ view: sensors_all {
     sql: ${TABLE}."UUID" ;;
   }
 
+  dimension: hours_missing {
+    type: number
+    sql:  COALESCE(DATEDIFF(hour, ${TABLE}.missing_at, CURRENT_TIMESTAMP), 0) ;;
+  }
+
+  dimension: status {
+    type:  string
+    sql: CASE
+            WHEN ${TABLE}.deleted_at IS NOT NULL THEN 'deleted'
+            WHEN ${TABLE}.installed_at IS NULL THEN 'lonely'
+            WHEN ${TABLE}.missing_at IS NULL THEN 'active'
+            WHEN ${hours_missing} <= 24 THEN 'lost'
+            WHEN ${hours_missing} <= 30*24 THEN 'dormant'
+            WHEN ${hours_missing} <= 90*24 THEN 'churned'
+            ELSE 'abandoned' END ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]
   }
-  measure: num_sensors_ever {
-    type: count_distinct
-    sql: ${hardware_id} ;;
-  }
-  measure: num_undeleted_sensors {
-    type: count_distinct
-    sql: iff (${TABLE}.deleted_at IS NULL, ${id},null) ;;
-  }
-  measure: num_deleted_sensors {
-    type: count_distinct
-    sql: iff (${TABLE}.deleted_at IS NOT NULL, ${id},null) ;;
-  }
-  measure: num_missing_sensors {
-    type: count_distinct
-    sql: iff (${TABLE}.missing_at IS NOT NULL, ${id},null) ;;
-  }
-  measure: num_active_sensors {
-    type: count_distinct
-    sql: iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,${id},null) ;;
-  }
-  measure: last_sensor_deleted_at {
-    type: date_time
-    sql: CASE
-                   WHEN count(iff (${TABLE}.deleted_at IS NOT NULL, ${id},null)) > 0 THEN NULL
-                   ELSE MAX(${TABLE}.deleted_at) END  ;;
-  }
-  measure: last_sensor_missing_at {
-    type: date_time
-    sql: CASE
-                   WHEN count(iff(${TABLE}.missing_at IS NULL AND ${TABLE}.deleted_at IS NULL,${id},null)) > 0 THEN NULL
-                   ELSE MAX(${TABLE}.missing_at) END  ;;
-  }
-  measure: first_sensor_installed_at {
-    type: date_time
-    sql: MIN(${TABLE}.installed_at) ;;
-  }
+
 # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

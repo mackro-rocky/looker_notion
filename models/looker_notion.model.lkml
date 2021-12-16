@@ -42,7 +42,7 @@ explore: sensor_messages {
   join: systems_all {
     view_label: "Systems"
     relationship: one_to_many
-    sql_on: ${bridges_all.system_id} = ${systems_all.id} ;;
+    sql_on: ${sensors_all.system_id} = ${systems_all.id} ;;
   }
   join: system_users_all  {
     view_label: "System Users"
@@ -154,8 +154,53 @@ explore: model_states_sensor {
     relationship: one_to_many
     sql_on:  ${users_all.uuid} = ${system_users_all.user_id} ;;
   }
-
 }
+
+explore:  latest_model_state {
+  label: "Latest Model State"
+  view_label: "Latest Model State"
+
+  join: listeners_sensor_all {
+    view_label: "Listener Sensors"
+    relationship: one_to_many
+    sql_on:  ${latest_model_state.listener_id} = ${listeners_sensor_all.id} ;;
+  }
+
+  # join: task_types {
+  #   view_label: "Task Types"
+  #   relationship: one_to_many
+  #   sql_on:  ${task_type.id} = ${listeners_sensor_all.task_type_id} ;;
+  # }
+}
+
+explore: task_counts {
+  label: "Task Counts"
+  view_label: "Task Counts"
+}
+
+explore: hardware_sensors {
+  label: "Sensor Hardware"
+  view_label: "Sensor Hardware"
+
+  join: sensors_all {
+    view_label: "Ephemeral Sensors"
+    relationship: one_to_many
+    sql_on: ${hardware_sensors.id} = ${sensors_all.hardware_id} ;;
+  }
+
+  join: current_sensors {
+    view_label: "Current Sensors"
+    relationship: one_to_one
+    sql_on: ${hardware_sensors.id} = ${current_sensors.hardware_id} ;;
+  }
+
+  join: listeners_sensor_all {
+    view_label: "Sensor Listeners"
+    relationship: one_to_many
+    sql_on: ${sensors_all.uuid} = ${listeners_sensor_all.sensor_id} ;;
+  }
+}
+
 explore: system_stats {}
 ### Commented out for now
 #  explore: sensors_all {}
