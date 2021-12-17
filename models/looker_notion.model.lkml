@@ -120,6 +120,80 @@ explore: systems_all {
 }
 
 
+# Task Explore
+explore: listeners_sensor_all {
+  view_label: "Listeners sensor"
+  label: "Tasks"
+  always_filter: {
+    filters: [deleted_date: "NULL",sensors_all.deleted_date: "NULL"]
+    }
+
+  join: task_types {
+    view_label: "Task Types"
+    relationship: many_to_one
+    sql_on: ${listeners_sensor_all.task_type_id} = ${task_types.id}  ;;
+  }
+
+  join: sensors_all {
+    view_label: "Sensors"
+    relationship: many_to_one
+    sql_on: ${listeners_sensor_all.sensor_id} = ${sensors_all.uuid}  ;;
+  }
+  join: systems_all {
+    view_label: "Bridges"
+    relationship: many_to_one
+    sql_on: ${systems_all.id} = ${sensors_all.system_id}  ;;
+  }
+
+  join: bridges_all {
+    view_label: "Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.system_id} = ${systems_all.id}  ;;
+  }
+
+  join: hardware_shipments_all {
+    view_label: "Hardware Shipments"
+    relationship: many_to_one
+    sql_on: ${bridges_all.hardware_id} = ${hardware_shipments_all.hardware_id}  ;;
+  }
+
+  join: shipments {
+    view_label: "Shipments"
+    relationship: many_to_one
+    sql_on: ${shipments.id} = ${hardware_shipments_all.shipment_id}  ;;
+  }
+
+  join: memberships_orders {
+    view_label: "Membership Orders"
+    relationship: many_to_one
+    sql_on: ${shipments.order_id} = ${memberships_orders.id}  ;;
+  }
+
+  join: groups {
+    view_label: "Groups"
+    relationship: many_to_one
+    sql_on: ${memberships_orders.group_id} = ${groups.id}  ;;
+  }
+
+  join: system_users_all  {
+    view_label: "System Users"
+    relationship: one_to_many
+    sql_on: ${systems_all.uuid} = ${system_users_all.system_id} ;;
+  }
+  join: users_all  {
+    view_label: "Users"
+    relationship: one_to_many
+    sql_on: ${system_users_all.user_id} = ${users_all.uuid} ;;
+  }
+  join: consents_all {
+    view_label: "Consents"
+    relationship: many_to_one
+    sql_on: ${consents_all.system_id} = ${systems_all.uuid}  ;;
+  }
+
+}
+
+
 explore: model_states_sensor {
   label: "Model States"
   view_label: "Model States"
