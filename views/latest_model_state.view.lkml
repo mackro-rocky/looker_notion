@@ -161,7 +161,7 @@ view: latest_model_state {
   dimension: alarm_state {
     type: string
     sql: case ${task_type_id} when 7 then
-      coalesce(${TABLE}."DATA":state:alarm, ${TABLE}."DATA":state:alarm)
+      coalesce(${TABLE}."DATA":state:alarm, ${TABLE}."DATA":state)
       else null end;;
   }
   # dimension: alarm_transition {
@@ -169,5 +169,19 @@ view: latest_model_state {
   #   sql: case ${model_type} when 'alarm' then   data:transition::string
   #     else null end ;;
   # }
+
+  dimension_group: last_trigger {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: CAST(${TABLE}."DATA":last_trigger_date AS TIMESTAMP_NTZ)  ;;
+  }
 
 }
