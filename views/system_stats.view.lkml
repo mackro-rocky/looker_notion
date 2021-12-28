@@ -19,8 +19,8 @@
                    WHEN count(iff(sen.missing_at IS NULL AND sen.deleted_at IS NULL,sen.id,null)) > 0 THEN NULL
                    ELSE MAX(sen.missing_at) END                                               AS last_sensor_missing_at,
                MAX(hws.revision)                                                              AS max_hws_revision
-        FROM  "PC_STITCH_DB"."SNOWFLAKE_POC"."SENSORS_ALL" sen
-                 JOIN "PC_STITCH_DB"."SNOWFLAKE_POC"."HARDWARE_SENSORS" hws ON sen.hardware_id = hws.id
+        FROM  "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SENSORS_ALL" sen
+                 JOIN "PC_STITCH_DB"."PRODUCTION_APPLICATION"."HARDWARE_SENSORS" hws ON sen.hardware_id = hws.id
         -- WHERE sen.system_id NOTNULL
         GROUP BY sen.system_id
     ),
@@ -30,12 +30,12 @@
                                              CASE
                                                  WHEN bridges.system_id IS NOT NULL THEN bridges.system_id
                                                  ELSE sensor_systems.system_id END AS supplemented_system_id
-             FROM "PC_STITCH_DB"."SNOWFLAKE_POC"."BRIDGES_ALL" bridges
+             FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."BRIDGES_ALL" bridges
 
-                      JOIN "PC_STITCH_DB"."SNOWFLAKE_POC"."HARDWARE_BRIDGES" hwb ON bridges.hardware_id = hwb.id
+                      JOIN "PC_STITCH_DB"."PRODUCTION_APPLICATION"."HARDWARE_BRIDGES" hwb ON bridges.hardware_id = hwb.id
                       LEFT JOIN (
                  SELECT DISTINCT sensors.last_bridge_hardware_id, sensors.system_id
-                 FROM "PC_STITCH_DB"."SNOWFLAKE_POC"."SENSORS_ALL" sensors
+                 FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SENSORS_ALL" sensors
              ) sensor_systems ON hwb.id = sensor_systems.last_bridge_hardware_id
              QUALIFY ROW_NUMBER() OVER (PARTITION BY bridges.id ORDER BY bridges.id) = 1
          ),
@@ -58,7 +58,7 @@
 
                     MAX(hwb.revision)                                                              AS max_hwb_revision
              FROM supplemented_bridges bri
-                      JOIN "PC_STITCH_DB"."SNOWFLAKE_POC"."HARDWARE_BRIDGES" hwb ON bri.hardware_id = hwb.id
+                      JOIN "PC_STITCH_DB"."PRODUCTION_APPLICATION"."HARDWARE_BRIDGES" hwb ON bri.hardware_id = hwb.id
              -- WHERE bri.supplemented_system_id NOTNULL
              GROUP BY bri.supplemented_system_id
          )
