@@ -67,6 +67,8 @@ explore: sensor_messages {
 }
 
 
+
+
 explore: systems_all {
   view_label: "Systems"
   label: "Systems"
@@ -236,8 +238,14 @@ explore:  latest_model_state {
 
   join: listeners_sensor_all {
     view_label: "Listener Sensors"
-    relationship: one_to_many
+    relationship: one_to_one
     sql_on:  ${latest_model_state.listener_id} = ${listeners_sensor_all.id} ;;
+  }
+
+  join: sensors_all {
+    view_label: "Ephemeral Sensors"
+    relationship: one_to_many
+    sql_on:  ${sensors_all.uuid} = ${listeners_sensor_all.sensor_id} ;;
   }
 
   # join: task_types {
@@ -333,11 +341,22 @@ explore: bridges_all {
     relationship: many_to_one
     sql_on: ${consents_all.system_id} = ${systems_all.uuid}  ;;
   }
+}
+
+explore: sensor_status {
+  label: "Sensor Status"
+  view_label: "Sensor Status"
+}
+
+explore: system_status {
+  label: "System Status"
+  view_label: "System Status"
 
 }
 
 
 explore: system_stats {}
+
 ### Commented out for now
 #  explore: sensors_all {}
 #  explore: users_all {}
