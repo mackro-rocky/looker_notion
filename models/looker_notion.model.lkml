@@ -326,6 +326,14 @@ explore: bridges_all {
     sql_on: ${memberships_orders.group_id} = ${groups.id}  ;;
   }
 
+
+  join: parent_groups {
+    from: groups
+    view_label: "Parent"
+    relationship: many_to_one
+    sql_on: ${groups.parent_id} = ${parent_groups.id}  ;;
+  }
+
   join: system_users_all  {
     view_label: "System Users"
     relationship: one_to_many
