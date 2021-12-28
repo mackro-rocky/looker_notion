@@ -166,7 +166,7 @@ explore: listeners_sensor_all {
   join: memberships_orders {
     view_label: "Membership Orders"
     relationship: many_to_one
-    sql_on: ${shipments.order_id} = ${memberships_orders.id}  ;;
+    sql_on: ${shipments.order_id} = ${memberships_orders.order_id}  ;;
   }
 
   join: groups {
@@ -281,7 +281,7 @@ explore: hardware_sensors {
 # Task Explore
 explore: bridges_all {
   view_label: "Bridge Info"
-  label: "Bridges"
+  label: "Bridges Info"
 
   join: systems_all {
     view_label: "Bridges"
@@ -309,7 +309,7 @@ explore: bridges_all {
   join: memberships_orders {
     view_label: "Membership Orders"
     relationship: many_to_one
-    sql_on: ${shipments.order_id} = ${memberships_orders.id}  ;;
+    sql_on: ${shipments.order_id} = ${memberships_orders.order_id}  ;;
   }
 
   join: groups {
