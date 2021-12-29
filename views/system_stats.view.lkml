@@ -98,6 +98,7 @@
     FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SYSTEMS_ALL"  sys
              LEFT JOIN sensors_by_system sbs ON sys.id = sbs.system_id
              LEFT JOIN bridges_by_system bbs ON sys.id = bbs.system_id
+   WHERE sys.deleted_at IS NULL
 )
 SELECT
            id,
