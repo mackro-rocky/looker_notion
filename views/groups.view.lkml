@@ -18,6 +18,7 @@ view: groups {
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
 
   dimension_group: _sdc_batched {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -32,6 +33,7 @@ view: groups {
   }
 
   dimension_group: _sdc_received {
+    hidden: yes
     type: time
     timeframes: [
       raw,
@@ -50,6 +52,7 @@ view: groups {
   # This dimension will be called " Sdc Sequence" in Explore.
 
   dimension: _sdc_sequence {
+    hidden: yes
     type: number
     sql: ${TABLE}."_SDC_SEQUENCE" ;;
   }
@@ -59,16 +62,19 @@ view: groups {
   # Click on the type parameter to see all the options in the Quick Help panel on the right.
 
   measure: total__sdc_sequence {
+    hidden: yes
     type: sum
     sql: ${_sdc_sequence} ;;
   }
 
   measure: average__sdc_sequence {
+    hidden: yes
     type: average
     sql: ${_sdc_sequence} ;;
   }
 
   dimension: _sdc_table_version {
+    hidden: yes
     type: number
     sql: ${TABLE}."_SDC_TABLE_VERSION" ;;
   }
@@ -109,10 +115,12 @@ view: groups {
 
   dimension: name {
     type: string
+    description: "Group Name"
     sql: ${TABLE}."NAME" ;;
   }
 
   dimension: parent_id {
+    description: "ID of the parent group"
     type: string
     sql: ${TABLE}."PARENT_ID" ;;
   }
@@ -123,6 +131,7 @@ view: groups {
   }
 
   dimension: slug {
+    description: "Coded Name"
     type: string
     sql: ${TABLE}."SLUG" ;;
   }

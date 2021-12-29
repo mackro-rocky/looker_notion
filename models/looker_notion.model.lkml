@@ -359,12 +359,30 @@ explore: sensor_status {
 explore: system_status {
   label: "System Status"
   view_label: "System Status"
-
 }
-
-
-explore: system_stats {}
-
+#
+# System Stats are from a derived view that returns 1 row per system
+#
+explore: system_stats {
+  label: "Systems Statistics"
+  view_label: "Systems Statistics"
+  join: consents_all {
+    view_label: "Consents"
+    relationship: many_to_one
+    sql_on: ${consents_all.system_id} = ${system_stats.uuid}  ;;
+}
+  join: groups {
+    view_label: "Groups"
+    relationship: many_to_one
+    sql_on: ${consents_all.group_id} = ${groups.id}  ;;
+}
+  join: parent_groups {
+    from: groups
+    view_label: "Parent"
+    relationship: many_to_one
+    sql_on: ${groups.parent_id} = ${parent_groups.id}  ;;
+  }
+}
 ### Commented out for now
 #  explore: sensors_all {}
 #  explore: users_all {}
