@@ -5,7 +5,7 @@
    derived_table: {
      sql: select system_id,
                  max(group_id) as group_id
-          from consents_all
+          from  "PC_STITCH_DB"."PRODUCTION_APPLICATION"."CONSENTS_ALL"
           group by system_id ;;
   }
   dimension: system_id {
