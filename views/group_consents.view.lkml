@@ -6,6 +6,7 @@
      sql: select system_id,
                  max(group_id) as group_id
           from  "PC_STITCH_DB"."PRODUCTION_APPLICATION"."CONSENTS_ALL"
+          WHERE  deleted_at IS NULL
           group by system_id ;;
   }
   dimension: system_id {
