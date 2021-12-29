@@ -95,7 +95,7 @@
                WHEN sbs.last_sensor_missing_at >= current_timestamp() - INTERVAL '30 days' THEN 'dormant'
                WHEN sbs.last_sensor_missing_at >= current_timestamp() - INTERVAL '90 days' THEN 'churned'
                ELSE 'abandoned' END                                 AS status
-    FROM "PC_STITCH_DB"."SNOWFLAKE_POC"."SYSTEMS_ALL"  sys
+    FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SYSTEMS_ALL"  sys
              LEFT JOIN sensors_by_system sbs ON sys.id = sbs.system_id
              LEFT JOIN bridges_by_system bbs ON sys.id = bbs.system_id
 )
