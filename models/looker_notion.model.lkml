@@ -366,15 +366,15 @@ explore: system_status {
 explore: system_stats {
   label: "Systems Statistics"
   view_label: "Systems Statistics"
-  join: consents_all {
-    view_label: "Consents"
+  join: group_consents {
+    view_label: "Group Consents"
     relationship: many_to_one
-    sql_on: ${consents_all.system_id} = ${system_stats.uuid}  ;;
+    sql_on: ${group_consents.system_id} = ${system_stats.uuid}  ;;
 }
   join: groups {
     view_label: "Groups"
     relationship: many_to_one
-    sql_on: ${consents_all.group_id} = ${groups.id}  ;;
+    sql_on: ${group_consents.group_id} = ${groups.id}  ;;
 }
   join: parent_groups {
     from: groups
