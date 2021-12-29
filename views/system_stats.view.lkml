@@ -21,7 +21,7 @@
                MAX(hws.revision)                                                              AS max_hws_revision
         FROM  "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SENSORS_ALL" sen
                  JOIN "PC_STITCH_DB"."PRODUCTION_APPLICATION"."HARDWARE_SENSORS" hws ON sen.hardware_id = hws.id
-        -- WHERE sen.system_id NOTNULL
+        WHERE sen.deleted_at IS NULL
         GROUP BY sen.system_id
     ),
          -- add an supplemental system_id through sensors.last_bridge_hardware_id b/c some bridges are lonely
@@ -35,10 +35,11 @@
                       JOIN "PC_STITCH_DB"."PRODUCTION_APPLICATION"."HARDWARE_BRIDGES" hwb ON bridges.hardware_id = hwb.id
                       LEFT JOIN (
                  SELECT DISTINCT sensors.last_bridge_hardware_id, sensors.system_id
-                 FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SENSORS_ALL" sensors
+                 FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SENSORS_ALL" sensors WHERE sensors.deleted_at IS NULL
              ) sensor_systems ON hwb.id = sensor_systems.last_bridge_hardware_id
+                WHERE  bridges.deleted_at IS NULL
              QUALIFY ROW_NUMBER() OVER (PARTITION BY bridges.id ORDER BY bridges.id) = 1
-         ),
+         ) ,
          bridges_by_system AS (
              SELECT bri.supplemented_system_id                                                     AS system_id,
                     count(bri.hardware_id)                                                         AS num_bridges_ever,
@@ -118,7 +119,7 @@ SELECT
            last_bridge_missing_at,
            max_hw_revision,
            status
-FROM system_status ;;
+FROM system_status;;
   }
 
 #
