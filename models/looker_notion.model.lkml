@@ -378,7 +378,7 @@ explore: system_stats {
 }
   join: parent_groups {
     from: groups
-    view_label: "Parent"
+    view_label: "Parent Groups"
     relationship: many_to_one
     sql_on: ${groups.parent_id} = ${parent_groups.id}  ;;
   }

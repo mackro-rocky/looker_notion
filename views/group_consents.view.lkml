@@ -1,6 +1,7 @@
 
 
  view: group_consents {
+  fields_hidden_by_default: yes
 #   # Or, you could make this view a derived table, like this:
    derived_table: {
      sql: select system_id,
