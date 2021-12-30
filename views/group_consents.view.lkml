@@ -10,10 +10,12 @@
           group by system_id ;;
   }
   dimension: system_id {
+    description: "System ID"
     type: string
     sql: ${TABLE}.system_id ;;
   }
   dimension: group_id {
+    description: "Group ID"
     type: string
     sql: ${TABLE}.group_id ;;
   }
