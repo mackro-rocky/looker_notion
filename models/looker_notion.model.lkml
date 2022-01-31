@@ -168,7 +168,7 @@ explore: listeners_sensor_all {
   join: memberships_orders {
     view_label: "Membership Orders"
     relationship: many_to_one
-    sql_on: ${shipments.order_id} = ${memberships_orders.id}  ;;
+    sql_on: ${shipments.order_id} = ${memberships_orders.order_id}  ;;
   }
 
   join: groups {
@@ -287,6 +287,74 @@ explore: hardware_sensors {
   }
 }
 
+
+
+
+# Task Explore
+explore: bridges_all {
+  view_label: "Bridge Info"
+  label: "Bridges Info"
+
+  join: systems_all {
+    view_label: "Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.system_id} = ${systems_all.id}  ;;
+  }
+  join: sensors_all {
+    view_label: "Sensors"
+    relationship: many_to_one
+    sql_on:  ${systems_all.id} = ${sensors_all.system_id} ;;
+  }
+
+  join: hardware_shipments_all {
+    view_label: "Hardware Shipments"
+    relationship: many_to_one
+    sql_on: ${bridges_all.hardware_id} = ${hardware_shipments_all.hardware_id}  ;;
+  }
+
+  join: shipments {
+    view_label: "Shipments"
+    relationship: many_to_one
+    sql_on: ${shipments.id} = ${hardware_shipments_all.shipment_id}  ;;
+  }
+
+  join: memberships_orders {
+    view_label: "Membership Orders"
+    relationship: many_to_one
+    sql_on: ${shipments.order_id} = ${memberships_orders.order_id}  ;;
+  }
+
+  join: groups {
+    view_label: "Groups"
+    relationship: many_to_one
+    sql_on: ${memberships_orders.group_id} = ${groups.id}  ;;
+  }
+
+
+  join: parent_groups {
+    from: groups
+    view_label: "Parent"
+    relationship: many_to_one
+    sql_on: ${groups.parent_id} = ${parent_groups.id}  ;;
+  }
+
+  join: system_users_all  {
+    view_label: "System Users"
+    relationship: one_to_many
+    sql_on: ${systems_all.uuid} = ${system_users_all.system_id} ;;
+  }
+  join: users_all  {
+    view_label: "Users"
+    relationship: one_to_many
+    sql_on: ${system_users_all.user_id} = ${users_all.uuid} ;;
+  }
+  join: consents_all {
+    view_label: "Consents"
+    relationship: many_to_one
+    sql_on: ${consents_all.system_id} = ${systems_all.uuid}  ;;
+  }
+}
+
 explore: sensor_status {
   label: "Sensor Status"
   view_label: "Sensor Status"
@@ -296,9 +364,29 @@ explore: system_status {
   label: "System Status"
   view_label: "System Status"
 }
-
-
-explore: system_stats {}
+#
+# System Stats are from a derived view that returns 1 row per system
+#
+explore: system_stats {
+  label: "Systems Statistics"
+  view_label: "Systems Statistics"
+  join: group_consents {
+    view_label: "Group Consents"
+    relationship: many_to_one
+    sql_on: ${group_consents.system_id} = ${system_stats.uuid}  ;;
+}
+  join: groups {
+    view_label: "Groups"
+    relationship: many_to_one
+    sql_on: ${group_consents.group_id} = ${groups.id}  ;;
+}
+  join: parent_groups {
+    from: groups
+    view_label: "Parent Groups"
+    relationship: many_to_one
+    sql_on: ${groups.parent_id} = ${parent_groups.id}  ;;
+  }
+}
 ### Commented out for now
 #  explore: sensors_all {}
 #  explore: users_all {}
