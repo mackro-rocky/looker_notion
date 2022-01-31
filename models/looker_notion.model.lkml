@@ -192,7 +192,11 @@ explore: listeners_sensor_all {
     relationship: many_to_one
     sql_on: ${consents_all.system_id} = ${systems_all.uuid}  ;;
   }
-
+  join: listeners_integration_all {
+    view_label: "Integrations"
+    relationship:  many_to_one
+    sql_on: ${listeners_integration_all.system_id} = ${systems_all.uuid}  ;;
+  }
 }
 
 

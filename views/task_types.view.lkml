@@ -2,7 +2,7 @@
 view: task_types {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: "PC_STITCH_DB"."SNOWFLAKE_POC"."TASK_TYPES"
+  sql_table_name: "PC_STITCH_DB"."PRODUCTION_APPLICATION"."TASK_TYPES"
     ;;
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.

@@ -1,8 +1,8 @@
-# The name of this view in Looker is "Hardware Shipments All"
-view: hardware_shipments_all {
+# The name of this view in Looker is "Listeners Integration All"
+view: listeners_integration_all {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: "PC_STITCH_DB"."PRODUCTION_APPLICATION"."HARDWARE_SHIPMENTS_ALL"
+  sql_table_name: "PRODUCTION_APPLICATION"."LISTENERS_INTEGRATION_ALL"
     ;;
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.
@@ -73,6 +73,11 @@ view: hardware_shipments_all {
     sql: ${TABLE}."_SDC_TABLE_VERSION" ;;
   }
 
+  dimension: configuration {
+    type: string
+    sql: ${TABLE}."CONFIGURATION" ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -101,29 +106,29 @@ view: hardware_shipments_all {
     sql: CAST(${TABLE}."DELETED_AT" AS TIMESTAMP_NTZ) ;;
   }
 
-  dimension: hardware_id {
+  dimension: integration_id {
     type: string
-    sql: ${TABLE}."HARDWARE_ID" ;;
+    sql: ${TABLE}."INTEGRATION_ID" ;;
   }
 
-  dimension_group: returned {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: CAST(${TABLE}."RETURNED_AT" AS TIMESTAMP_NTZ) ;;
+  dimension: model_version {
+    type: string
+    sql: ${TABLE}."MODEL_VERSION" ;;
   }
 
-  dimension: shipment_id {
+  dimension: status {
     type: string
-    # hidden: yes
-    sql: ${TABLE}."SHIPMENT_ID" ;;
+    sql: ${TABLE}."STATUS" ;;
+  }
+
+  dimension: system_id {
+    type: string
+    sql: ${TABLE}."SYSTEM_ID" ;;
+  }
+
+  dimension: task_type_id {
+    type: number
+    sql: ${TABLE}."TASK_TYPE_ID" ;;
   }
 
   dimension_group: updated {
@@ -142,6 +147,6 @@ view: hardware_shipments_all {
 
   measure: count {
     type: count
-    drill_fields: [id, shipments.id]
+    drill_fields: [id]
   }
 }

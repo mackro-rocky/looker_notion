@@ -1,7 +1,7 @@
 view: current_sensors {
   derived_table: {
     sql: SELECT s.*
-    FROM "PC_STITCH_DB"."SNOWFLAKE_POC"."SENSORS_ALL" s
+    FROM "PC_STITCH_DB"."PRODUCTION_APPLICATION"."SENSORS_ALL" s
     QUALIFY ROW_NUMBER() OVER (PARTITION BY s.hardware_id ORDER BY s.installed_at DESC NULLS LAST) = 1 ;;
   }
 
