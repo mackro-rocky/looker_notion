@@ -1,8 +1,8 @@
-# The name of this view in Looker is "Listeners Integration All"
-view: listeners_integration_all {
+# The name of this view in Looker is "Listener Inputs All"
+view: listener_inputs_all {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: "PC_STITCH_DB"."PRODUCTION_APPLICATION"."LISTENERS_INTEGRATION_ALL"
+  sql_table_name: "PC_STITCH_DB"."PRODUCTION_APPLICATION"."LISTENER_INPUTS_ALL"
     ;;
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.
@@ -73,9 +73,9 @@ view: listeners_integration_all {
     sql: ${TABLE}."_SDC_TABLE_VERSION" ;;
   }
 
-  dimension: configuration {
+  dimension: config {
     type: string
-    sql: ${TABLE}."CONFIGURATION" ;;
+    sql: ${TABLE}."CONFIG" ;;
   }
 
   dimension_group: created {
@@ -106,29 +106,14 @@ view: listeners_integration_all {
     sql: CAST(${TABLE}."DELETED_AT" AS TIMESTAMP_NTZ) ;;
   }
 
-  dimension: integration_id {
+  dimension: source_id {
     type: string
-    sql: ${TABLE}."INTEGRATION_ID" ;;
+    sql: ${TABLE}."SOURCE_ID" ;;
   }
 
-  dimension: model_version {
+  dimension: target_id {
     type: string
-    sql: ${TABLE}."MODEL_VERSION" ;;
-  }
-
-  dimension: status {
-    type: string
-    sql: ${TABLE}."STATUS" ;;
-  }
-
-  dimension: system_id {
-    type: string
-    sql: ${TABLE}."SYSTEM_ID" ;;
-  }
-
-  dimension: task_type_id {
-    type: number
-    sql: ${TABLE}."TASK_TYPE_ID" ;;
+    sql: ${TABLE}."TARGET_ID" ;;
   }
 
   dimension_group: updated {

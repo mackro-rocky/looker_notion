@@ -72,16 +72,7 @@ explore: sensor_messages {
 explore: systems_all {
   view_label: "Systems"
   label: "Systems"
-  join: bridges_all {
-    view_label: "Bridges"
-    relationship: many_to_one
-    sql_on: ${bridges_all.system_id} = ${systems_all.id}  ;;
-  }
-  join: hardware_bridges {
-    view_label: "HW Bridges"
-    relationship: many_to_one
-    sql_on: ${bridges_all.hardware_id} = ${hardware_bridges.id} ;;
-  }
+
   join: system_users_all  {
     view_label: "System Users"
     relationship: one_to_many
@@ -102,22 +93,67 @@ explore: systems_all {
     relationship: many_to_one
     sql_on: ${consents_all.group_id} = ${groups.id}  ;;
   }
+  join: integrations_all {
+    view_label: "Integrations"
+    type:  left_outer
+    relationship: one_to_many
+    sql_on: ${systems_all.uuid} = ${integrations_all.system_id}  ;;
+  }
+  join: listeners_integration_all {
+    view_label: "Listener Integrations"
+    type:  left_outer
+    relationship: one_to_many
+    sql_on: ${integrations_all.id} = ${listeners_integration_all.integration_id} ;;
+  }
+
+  join: bridges_all {
+    view_label: "Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.system_id} = ${systems_all.id}  ;;
+  }
+  join: hardware_bridges {
+    view_label: "HW Bridges"
+    relationship: many_to_one
+    sql_on: ${bridges_all.hardware_id} = ${hardware_bridges.id} ;;
+  }
+
   join: sensors_all {
     view_label: "Sensors"
     relationship: many_to_one
     sql_on: ${sensors_all.system_id} = ${systems_all.id}  ;;
-
   }
   join: hardware_sensors {
     view_label: "Hardware Sensors"
     relationship: many_to_one
     sql_on: ${sensors_all.hardware_id} = ${hardware_sensors.id} ;;
-
   }
-  join: integrations_all {
-    view_label: "Integrations"
+  join: listeners_sensor_all {
+    view_label: "Sensor Listeners"
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${sensors_all.uuid} = ${listeners_sensor_all.sensor_id} ;;
+  }
+  join: task_types {
+    view_label: "Task Types"
     relationship: many_to_one
-    sql_on: ${integrations_all.system_id} = ${systems_all.uuid}  ;;
+    sql_on: ${listeners_sensor_all.task_type_id} = ${task_types.id}  ;;
+  }
+  # join: source_listener {
+  #   from: listener_inputs_all
+  #   relationship: one_to_many
+  #   sql_on: ${source_id} = ${listeners_sensor_all.id} ;;
+  # }
+  # join: target_listener {
+  #   from: listener_inputs_all
+  #   relationship: one_to_many
+  #   sql_on: ${target_id} = ${listeners_integration_all.id} ;;
+  # }
+  join: listener_inputs_all {
+    view_label: "Listener Inputs"
+    type:  left_outer
+    relationship: one_to_one
+    sql_on: ${listener_inputs_all.source_id} = ${listeners_sensor_all.id}
+      AND ${listener_inputs_all.target_id} = ${listeners_integration_all.id};;
   }
 }
 
@@ -192,10 +228,15 @@ explore: listeners_sensor_all {
     relationship: many_to_one
     sql_on: ${consents_all.system_id} = ${systems_all.uuid}  ;;
   }
-  join: listeners_integration_all {
+  join: integrations_all {
     view_label: "Integrations"
+    relationship: many_to_one
+    sql_on: ${integrations_all.system_id} = ${systems_all.uuid}  ;;
+  }
+  join: listeners_integration_all {
+    view_label: "Listener Integrations"
     relationship:  many_to_one
-    sql_on: ${listeners_integration_all.system_id} = ${systems_all.uuid}  ;;
+    sql_on: ${listeners_integration_all.integration_id} = ${integrations_all.id}  ;;
   }
 }
 
@@ -364,6 +405,17 @@ explore: system_status {
   label: "System Status"
   view_label: "System Status"
 }
+
+explore: notion_pro_listeners {
+  label: "Notion PRO listeners"
+  view_label: "Notion PRO listeners"
+  join: sensors_all {
+    view_label: "Sensors"
+    relationship: many_to_one
+    sql_on:  ${notion_pro_listeners.sensor_uuid} = ${sensors_all.uuid} ;;
+  }
+}
+
 #
 # System Stats are from a derived view that returns 1 row per system
 #
